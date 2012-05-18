@@ -188,14 +188,19 @@ If you read older texts on MVC, you may come across a description of models as a
 ###Views
 
 Views are a visual representation of models that present a filtered view of their current state. A view typically observes a model and is notified when the model changes, allowing the view to update itself accordingly. Design pattern literature commonly refers to views as 'dumb', given that their knowledge of models and controllers in an application is limited.
+视图是模型当前状态的一个被过滤过的可视化展示。一般说来视图监听着模型的变化以便在模型发生状态变化时相应地更新自己。由于在具体应用中视图对模型和控制器只能获得很有限的了解，因此设计模式的著作中通常说视图是没什么智能的。
 
 Users interact with views, which usually means reading and editing model data. For example, in our photo gallery application example, model viewing might happen in a user interface with a big image, a caption, and a list of tags. Model editing could be done through an "edit" view where a user who has selected a specific photo could edit its caption, tags, or other metadata in a form. 
+用户和视图的交互通常意味着对模型数据的读取和修改。以我们的图库相册应用为例，一个有标题的大的图例展示（同时显示了一串标签）的用户界面就是对模型数据的读取，而用户通过表单形式修改其选中的某张照片的标题、标签或者其他元数据这样一个编辑视图，则提供了对模型数据的修改。
 
 In MVC, the actual task of updating the Model falls to Controllers, which we'll be covering shortly.
+在 MVC 框架中，实际上是由控制器来负责对模型的修改的，这点我们稍后详述。
 
 Let's explore Views a little further using a simple JavaScript example. Below we can see a function that creates a single Photo view, consuming both a model instance and a controller instance. 
+在那之前，我们用一个简单的 JavaScript 源码样例来更深入一点的探讨视图。在下面的源码样例里，我们将看到一个负责创建单个照片视图的函数，该函数需要一个模型实例和控制器实例作为输入参数。
  
 We define a ```render()``` utility within our view which is responsible for rendering the contents of the ```photoModel``` using a JavaScript templating engine (Underscore templating) and updating the contents of our view, referenced by ```photoEl```.  
+在这个视图中，我们定义了一个 ```render()``` 工具函数来使用 Underscore JavaScript 模版引擎渲染 ```photoModel``` 的内容，然后将渲染结果用来更新此视图的内容，该内容由 ```photoEl``` 变量代表。
 
 The ```photoModel``` then adds our ```render()``` callback as one of its subscribers, so that through the Observer pattern it can trigger the view to update when the model changes. 
 
